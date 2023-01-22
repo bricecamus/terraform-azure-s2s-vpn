@@ -1,20 +1,20 @@
 resource "azurerm_resource_group" "rg_vpn_s2s" {
   name     = "rg_vpn_s2s"
-  location = ""
+  location = var.location
 }
 
 resource "azurerm_virtual_network" "vpn_s2s_vn" {
   name                = "vpn_s2s_vn"
   location            = azurerm_resource_group.rg_vpn_s2s.location
   resource_group_name = azurerm_resource_group.rg_vpn_s2s.name
-  address_space       = [""]
+  address_space       = var.vn_address_space
 }
 
 resource "azurerm_subnet" "vpn_s2s_subnet" {
   name                 = "GatewaySubnet"
   resource_group_name  = azurerm_resource_group.rg_vpn_s2s.name
   virtual_network_name = azurerm_virtual_network.vpn_s2s_vn.name
-  address_prefixes     = [""]
+  address_prefixes     = var.vn_subnet
 }
 
 resource "azurerm_public_ip" "vpn_s2s_public_ip" {
@@ -48,18 +48,16 @@ resource "azurerm_local_network_gateway" "vpn_s2s_local_gateway" {
   name                = "vpn_s2s_local_gateway"
   location            = azurerm_resource_group.rg_vpn_s2s.location
   resource_group_name = azurerm_resource_group.rg_vpn_s2s.name
-  gateway_address     = ""
-  address_space       = [""]
+  gateway_address     = var_lng_gateway_address
+  address_space       = var.lng_address_space
 }
 
 resource "azurerm_virtual_network_gateway_connection" "vpn_s2s_connection" {
-  name                = "vpn_s2s_connection"
-  location            = azurerm_resource_group.rg_vpn_s2s.location
-  resource_group_name = azurerm_resource_group.rg_vpn_s2s.name
-
+  name                       = "vpn_s2s_connection"
+  location                   = azurerm_resource_group.rg_vpn_s2s.location
+  resource_group_name        = azurerm_resource_group.rg_vpn_s2s.name
   type                       = "IPsec"
   virtual_network_gateway_id = azurerm_virtual_network_gateway.vpn_s2s_vn_gateway.id
   local_network_gateway_id   = azurerm_local_network_gateway.vpn_s2s_local_gateway.id
-
-  shared_key = ""
+  shared_key                 = var.shared_key
 }
