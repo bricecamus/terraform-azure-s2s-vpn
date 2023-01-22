@@ -48,7 +48,7 @@ resource "azurerm_local_network_gateway" "vpn_s2s_local_gateway" {
   name                = "vpn_s2s_local_gateway"
   location            = azurerm_resource_group.rg_vpn_s2s.location
   resource_group_name = azurerm_resource_group.rg_vpn_s2s.name
-  gateway_address     = var_lng_gateway_address
+  gateway_address     = var.lng_gateway_address
   address_space       = var.lng_address_space
 }
 
