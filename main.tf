@@ -1,20 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=3.28.0"
-    }
-    azapi = {
-      source = "azure/azapi"
-    }
-  }
-}
-
-provider "azurerm" {
-  subscription_id = ""
-  features {}
-}
-
 resource "azurerm_resource_group" "rg_vpn_s2s" {
   name     = "rg_vpn_s2s"
   location = ""
