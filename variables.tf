@@ -10,12 +10,12 @@ variable "location" {
 
 variable "vn_address_space" {
   type        = list(string)
-  description = "Virtual Network address space (input example: 172.16.0.0/16)"
+  description = "Virtual Network address space (input example: [\"172.16.0.0/16\"])"
 }
 
 variable "vn_subnet" {
   type        = list(string)
-  description = "Subnet used by the Azure Virtual Network (input example: 172.16.1.0/24)"
+  description = "Subnet used by the Azure Virtual Network (input example: [\"172.16.1.0/24\"])"
 }
 
 variable "lng_gateway_adress" {
@@ -25,7 +25,7 @@ variable "lng_gateway_adress" {
 
 variable "lng_address_space" {
   type        = list(string)
-  description = "Local Network Gateway address space aka IP range you use in your local network (input example: 10.0.0.0/8)"
+  description = "Local Network Gateway address space aka IP range you use in your local network (input example: [\"10.0.0.0/8\"])"
 }
 
 variable "shared_key" {
